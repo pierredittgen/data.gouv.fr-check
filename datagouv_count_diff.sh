@@ -14,7 +14,7 @@ wget -nv https://www.data.gouv.fr/fr/datasets.csv -O data/datasets.csv
 echo "Work on it..."
 mkdir -p work
 csvcut -d ';' -c 'id,name,metric.datasets' data/organizations.csv | csvsort -c 'id' > work/orgs.csv
-csvcut -d ';' -c 'organization_id' data/datasets.csv 2>/dev/null | grep -v '""' | sed -e "1d" | sort | uniq -c | sed -e 's/^ *//' | sed -e 's/ /,/' | sed '1i dataset_count,id' | csvcut -c 'id,dataset_count' > work/dataset_count.csv
+(echo "id,dataset_count" && (csvcut -d ';' -c 'organization_id' data/datasets.csv 2>/dev/null | grep -v '""' | sed -e "1d" | sort | uniq -c | sed -e 's/^ *//' | sed -e 's/ /,/' | csvcut -c '2,1')) > work/dataset_count.csv
 
 echo "Generating merged file..."
 mkdir -p dist
