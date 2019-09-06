@@ -1,42 +1,25 @@
-# Cohérence des données datagouv
+# data.gouv.fr checks
 
-## Nombre de datasets par organisation
 
-À partir de odservatoire.sqlite:
+## Organizations and dataset count inconsistencies
 
-Nombre datasets estimés par organisation (table organisations)
+Depends on [csvkit](https://pypi.org/project/csvkit/), sort, uniq and sed command-line utilities
 
-```sql
-SELECT id, name, metric_datasets
-FROM data_gouv_organizations
-ORDER BY 1
+Using provided bash script (csv check file is generated in `dist/` folder)
+```bash
+./datagouv_count_diff.sh
 ```
+Or doing it manually following steps:
 
-Nombre de datasets trouvés par organisation (table datasets)
-
-```sql
-SELECT organization_id, COUNT(*) as dataset_nb
-FROM data_gouv_datasets
-GROUP BY organization_id
-ORDER BY 1
-```
-
-## Nombre de ressources par dataset
-
-## Getting data
-
-From datagouv website
+Getting data from datagouv website
 
 ```bash
 mkdir -p data
 wget -nv https://www.data.gouv.fr/fr/organizations.csv -O data/organizations.csv
 wget -nv https://www.data.gouv.fr/fr/datasets.csv -O data/datasets.csv
-wget -nv https://www.data.gouv.fr/fr/resources.csv -O data/resources.csv
 ```
 
-## Handling data
-
-Using [csvkit](https://pypi.org/project/csvkit/), sort, uniq and sed
+Transforming data
 
 ```bash
 # Creates a minimal organizations CSV file
