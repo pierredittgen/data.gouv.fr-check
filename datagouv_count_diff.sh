@@ -6,10 +6,7 @@
 # Depends on csvkit (csvcut, csvjoin), sed and uniq command-line tools
 #
 
-echo "Download data from data.gouv..."
-mkdir -p data
-wget -nv https://www.data.gouv.fr/fr/organizations.csv -O data/organizations.csv
-wget -nv https://www.data.gouv.fr/fr/datasets.csv -O data/datasets.csv
+./download_dumps.sh || exit 1
 
 echo "Work on it..."
 mkdir -p work
