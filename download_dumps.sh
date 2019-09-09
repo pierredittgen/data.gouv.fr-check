@@ -10,5 +10,8 @@ fi
 if [ ! -e $DATA_DIR/datasets.csv ]; then
     wget -nv https://www.data.gouv.fr/fr/datasets.csv -O $DATA_DIR/datasets.csv
 fi
+if [ ! -e $DATA_DIR/resources.csv ]; then
+    wget -nv https://www.data.gouv.fr/fr/resources.csv -O $DATA_DIR/resources.csv
+fi
 
 echo "done."
