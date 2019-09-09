@@ -1,10 +1,10 @@
 #!/bin/bash
 #
-# Download organizations and datasets files from data.gouv.fr (if not already present)
-# Creates a CSV stats file to show diff
+# Download dumps files from data.gouv.fr (if not already present)
+# Looks for inconsistencies between dataset number declared for an organization (organizations.csv)
+#   and dataset count found for this organization (datasets.csv).
 #
 # Depends on csvkit (csvcut, csvjoin), sed and uniq command-line tools
-#
 
 ./download_dumps.sh || exit 1
 
