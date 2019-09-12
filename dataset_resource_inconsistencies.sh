@@ -5,11 +5,14 @@
 #
 # Depends on comm, csvkit (csvcut, csvjoin), sed and uniq command-line tools
 
+# Maximum CSV line length (bytes)
+MAX_LINE_LEN=1000000
+
 ./download_dumps.sh || exit 1
 
 echo "Work on it..."
 mkdir -p work
-csvcut -d ';' -c 'id' data/datasets.csv 2>/dev/null | sed -e "1d" | sort -u > work/datasets_unique_id.txt
+csvcut -d ';' -c 'id' -z $MAX_LINE_LEN data/datasets.csv | sed -e "1d" | sort -u > work/datasets_unique_id.txt
 csvcut -d ';' -c 'dataset.id' data/resources.csv | sed -e '1d' | sort -u > work/resources_ref_dataset_unique_id.txt
 
 STATS_FILE=dist/dataset_ids_not_found.csv 
